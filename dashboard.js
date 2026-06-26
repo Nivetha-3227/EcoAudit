@@ -142,7 +142,46 @@ function updateEntriesList(entries) {
         </div>
     `).join('');
 }
+function updateTopWaste(entries) {
+    // Calculate total kg per category
+    const categoryTotals = {};
+    entries.forEach(entry => {
+        if (!categoryTotals[entry.category]) {
+            categoryTotals[entry.category] = 0;
+        }
+        categoryTotals[entry.category] += entry.weight;
+    });
 
+    // Sort by total kg descending and take top 3
+    const top3 = Object.entries(categoryTotals)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+
+    const container = document.getElementById('top-waste-list');
+
+    if (top3.length === 0) {
+        container.innerHTML = '<p class="no-entries">No data yet</p>';
+        return;
+    }
+
+    // Category colors
+    const colors = {
+        'Plastic': '#3498db',
+        'E-Waste': '#e67e22',
+        'Organic': '#27ae60',
+        'Metal': '#95a5a6',
+        'Paper': '#f39c12',
+        'Glass': '#9b59b6'
+    };
+
+    container.innerHTML = top3.map(([category, total], index) => `
+        <div class="top-waste-card" style="border-top: 4px solid ${colors[category] || '#2d6a2d'}">
+            <span class="top-waste-rank">#${index + 1}</span>
+            <span class="top-waste-category">${category}</span>
+            <span class="top-waste-amount">${total.toFixed(2)} kg</span>
+        </div>
+    `).join('');
+}
 // Shows or hides past entries dropdown
 function toggleEntries() {
     const list = document.getElementById('entries-list');

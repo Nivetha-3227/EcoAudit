@@ -118,8 +118,9 @@ function updateMap(entries) {
     entries.forEach(entry => {
         L.marker([entry.latitude, entry.longitude])
             .addTo(map)
-            .bindPopup(
-                `<b>${entry.category}</b><br>${entry.weight} kg<br>${new Date(entry.created_at).toLocaleDateString()}`
+            .bindTooltip(
+                `📍 ${entry.latitude.toFixed(4)}, ${entry.longitude.toFixed(4)}`,
+                { permanent: false, direction: 'top' }
             );
     });
 }

@@ -137,6 +137,7 @@ function updateEntriesList(entries) {
             <span class="entry-category">${entry.category}</span>
             <span class="entry-weight">${entry.weight} kg</span>
             <span class="entry-date">${new Date(entry.created_at).toLocaleDateString()}</span>
+            <span class="entry-coords">📍 ${entry.latitude.toFixed(4)}, ${entry.longitude.toFixed(4)}</span>
         </div>
     `).join('');
 }

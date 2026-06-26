@@ -69,6 +69,7 @@ async function loadDashboard(userId) {
 
     // Update all sections with fetched data
     updateStats(entries);
+    updateTopWaste(entries);
     updateMap(entries);
     updateEntriesList(entries);
 }

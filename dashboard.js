@@ -132,13 +132,14 @@ function updateEntriesList(entries) {
         return;
     }
 
-    list.innerHTML = entries.map(entry => `
-        <div class="entry-card">
-            <span class="entry-category">${entry.category}</span>
-            <span class="entry-weight">${entry.weight} kg</span>
-            <span class="entry-date">${new Date(entry.created_at).toLocaleDateString()}</span>
-        </div>
-    `).join('');
+    <div class="entry-card">
+    <div>
+        <strong>${entry.category}</strong><br>
+        ${entry.weight} kg<br>
+        ${new Date(entry.created_at).toLocaleDateString()}<br>
+        📍 ${entry.latitude.toFixed(5)}, ${entry.longitude.toFixed(5)}
+    </div>
+</div>
 }
 
 // Shows or hides past entries dropdown

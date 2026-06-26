@@ -78,7 +78,7 @@ async function updateStats(entries) {
     // Total weight - add up all weights
     const totalWeight = entries.reduce((sum, entry) => sum + entry.weight, 0);
     document.getElementById('total-weight').textContent = totalWeight.toFixed(2) + ' kg';
-
+    
     // Total count - just the length of entries list
     document.getElementById('total-count').textContent = entries.length;
 
@@ -97,6 +97,26 @@ async function updateStats(entries) {
         const placeName = await reverseGeocode(mostFrequentEntry.latitude, mostFrequentEntry.longitude);
         document.getElementById('top-category').textContent = topCategory + ' | 📍 ' + placeName;
     }
+    const wasteTotals = {};
+
+entries.forEach(entry=>{
+    wasteTotals[entry.category] =
+        (wasteTotals[entry.category] || 0) + entry.weight;
+});
+    const top3 = Object.entries(wasteTotals)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,3);
+    document.getElementById("top3-waste").innerHTML =
+top3.map(item=>`
+
+<p>
+<b>${item[0]}</b>
+
+${item[1].toFixed(2)} kg
+
+</p>
+
+`).join("");
 }
 
 // Converts latitude and longitude to a real place name

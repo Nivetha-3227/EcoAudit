@@ -332,7 +332,14 @@ async function submitSuggestion() {
         document.getElementById('suggestion-message').value = '';
     }
 }
+function openPhoto(url) {
+    document.getElementById('photo-modal-img').src = url;
+    document.getElementById('photo-modal').style.display = 'flex';
+}
 
+function closePhoto() {
+    document.getElementById('photo-modal').style.display = 'none';
+}
 async function logout() {
     await db.auth.signOut();
     window.location.href = 'index.html';

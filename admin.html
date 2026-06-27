@@ -99,7 +99,13 @@
             </div>
         </div>
     </div>
-
+    <!-- PHOTO VIEWER -->
+<div id="photo-modal" style="display:none;" onclick="closePhoto()">
+    <div class="photo-modal-box">
+        <img id="photo-modal-img" src="" />
+        <p style="color:white; text-align:center; margin-top:8px;">Click anywhere to close</p>
+    </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="supabase.js"></script>

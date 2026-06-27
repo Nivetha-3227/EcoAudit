@@ -1,6 +1,6 @@
 let map;
 let currentLocationMarker;
-
+let currentUser;
 window.onload = async function () {
     const { data: { user } } = await db.auth.getUser();
     if (!user) {
@@ -249,6 +249,7 @@ async function submitWaste() {
 
             const { error } = await db.from('waste_logs').insert({
                 user_id: user.id,
+                username: username,
                 category: category,
                 weight: weight,
                 latitude: lat,

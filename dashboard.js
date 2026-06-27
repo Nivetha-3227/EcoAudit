@@ -117,7 +117,7 @@ function updateEntriesList(entries) {
     }
 
     list.innerHTML = `
-        <div class="entry-header">
+        <div class="entry-header" style="grid-template-columns: 1.5fr 1fr 1fr 1.5fr 1fr;">
             <span>Category</span>
             <span>Weight</span>
             <span>Date</span>
@@ -125,7 +125,7 @@ function updateEntriesList(entries) {
             <span>Photo</span>
         </div>
     ` + last5.map(entry => `
-        <div class="entry-card" style="grid-template-columns: 2fr 1fr 1fr 2fr 1fr;">
+        <div class="entry-card" style="grid-template-columns: 1.5fr 1fr 1fr 1.5fr 1fr;">
             <span class="entry-category">${entry.category}</span>
             <span class="entry-weight">${entry.weight} kg</span>
             <span class="entry-date">${new Date(entry.created_at).toLocaleDateString()}</span>

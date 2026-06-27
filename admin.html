@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoAudit - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <span class="nav-logo">🌱 EcoAudit — Admin</span>
+        <div class="nav-right">
+            <span id="nav-username"></span>
+            <button class="logout-btn" onclick="logout()">Log Out</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+
+        <!-- ROW 1: STAT CARDS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Waste Logged</h3>
+                <p id="admin-total-waste">0 kg</p>
+                <p class="stat-sub" id="admin-total-users">0 users</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Disposals</h3>
+                <p id="admin-total-disposals">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Most Active Location</h3>
+                <p id="admin-top-location">-</p>
+            </div>
+        </div>
+
+        <!-- ROW 2: USER RANKING + NOTICE BOARD -->
+        <div class="two-col-row">
+
+            <!-- USER WASTE RANKING -->
+            <div class="admin-section">
+                <h2 class="section-title">🏆 User Waste Ranking</h2>
+                <div id="user-ranking-list"></div>
+            </div>
+
+            <!-- NOTICE BOARD -->
+            <div class="admin-section">
+                <h2 class="section-title">📢 Notice Board</h2>
+                <input type="text" id="notice-title" placeholder="Notice Title" />
+                <textarea id="notice-message" placeholder="Notice Message" rows="3"></textarea>
+                <button class="primary-btn" onclick="postNotice()">Post Notice</button>
+                <p id="notice-status"></p>
+                <div id="notice-list" style="margin-top: 16px;"></div>
+            </div>
+
+        </div>
+
+        <!-- ROW 3: MAP -->
+        <div class="map-section">
+            <h2 class="section-title">🗺️ All Disposal Locations</h2>
+            <div id="map"></div>
+        </div>
+
+        <!-- ROW 4: SUGGESTIONS -->
+        <div class="admin-section">
+            <h2 class="section-title">💬 Suggestions from Users</h2>
+            <div id="suggestions-list"></div>
+        </div>
+
+        <!-- ROW 5: LAST 5 ENTRIES -->
+        <div class="entries-section">
+            <div class="entries-header-row">
+                <button class="dropdown-btn" onclick="toggleEntries()">
+                    Recent Entries ▼
+                </button>
+                <a href="admin-history.html" class="view-all-btn">View Full History →</a>
+            </div>
+            <div id="entries-list" style="display:none;"></div>
+        </div>
+
+    </div>
+
+    <!-- SUGGESTION POPUP -->
+    <div id="suggestion-modal" style="display:none;">
+        <div class="modal-box">
+            <h2>💬 Suggestion</h2>
+            <p id="suggestion-modal-username"></p>
+            <p id="suggestion-modal-message"></p>
+            <p id="suggestion-modal-date"></p>
+            <div class="modal-buttons">
+                <button class="primary-btn" onclick="closeSuggestionModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="supabase.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

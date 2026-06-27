@@ -57,7 +57,7 @@ function displayEntries(entries) {
     }
 
     list.innerHTML = `
-        <div class="entry-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 1.5fr 1fr;">
+        <div class="entry-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 2.5fr 1fr;">
             <span>Username</span>
             <span>Category</span>
             <span>Weight</span>
@@ -66,7 +66,7 @@ function displayEntries(entries) {
             <span>Photo</span>
         </div>
     ` + entries.map(entry => `
-        <div class="entry-card" style="grid-template-columns: 1fr 1fr 1fr 1fr 1.5fr 1fr;">
+        <div class="entry-card" style="grid-template-columns: 1fr 1fr 1fr 1fr 2.5fr 1fr;">
             <span class="entry-category">${entry.username || 'Unknown'}</span>
             <span class="entry-weight">${entry.category}</span>
             <span class="entry-date">${entry.weight} kg</span>

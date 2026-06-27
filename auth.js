@@ -28,7 +28,7 @@ async function login() {
         document.getElementById('auth-message').textContent = "Invalid username or password.";
     } else {
         // Redirect admin to admin panel, others to dashboard
-        if (username === 'ecoaudit_admin') {
+        if (username === 'ecoadmin') {
             window.location.href = 'admin.html';
         } else {
             window.location.href = 'dashboard.html';

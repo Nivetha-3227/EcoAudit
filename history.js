@@ -27,20 +27,35 @@ window.onload = async function () {
     }
 
     list.innerHTML = `
-        <div class="entry-header">
+        <div class="entry-header" style="grid-template-columns: 1.5fr 1fr 1fr 1.5fr 1fr;">
             <span>Category</span>
             <span>Weight</span>
             <span>Date</span>
             <span>Coordinates</span>
+            <span>Photo</span>
         </div>
     ` + entries.map(entry => `
-        <div class="entry-card">
+        <div class="entry-card" style="grid-template-columns: 1.5fr 1fr 1fr 1.5fr 1fr;">
             <span class="entry-category">${entry.category}</span>
             <span class="entry-weight">${entry.weight} kg</span>
             <span class="entry-date">${new Date(entry.created_at).toLocaleDateString()}</span>
             <span class="entry-coords">📍 ${entry.latitude.toFixed(4)}, ${entry.longitude.toFixed(4)}</span>
+            <span class="entry-photo">
+                ${entry.photo_url
+                    ? `<img src="${entry.photo_url}" onclick="openPhoto('${entry.photo_url}')" class="entry-thumb" />`
+                    : '-'}
+            </span>
         </div>
     `).join('');
+}
+
+function openPhoto(url) {
+    document.getElementById('photo-modal-img').src = url;
+    document.getElementById('photo-modal').style.display = 'flex';
+}
+
+function closePhoto() {
+    document.getElementById('photo-modal').style.display = 'none';
 }
 
 async function logout() {

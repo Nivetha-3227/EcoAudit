@@ -139,7 +139,7 @@ function updateEntriesList(entries) {
             <span>Category</span>
             <span>Weight</span>
             <span>Date</span>
-            <span>Coordinates</span>
+            <span>Coordinates(Lat/Long)</span>
         </div>
         ` + 
         entries.map(entry => `

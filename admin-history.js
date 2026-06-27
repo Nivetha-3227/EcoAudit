@@ -7,15 +7,15 @@ window.onload = async function () {
         return;
     }
 
-    const username = user.user_metadata.username;
-    if (username !== 'ecoadmin') {
+    // Check by email instead of username since admin has no metadata
+    const email = user.email;
+    if (email !== 'ecoadmin@ecoaudit.com') {
         window.location.href = 'dashboard.html';
         return;
     }
 
-    document.getElementById('nav-username').textContent = '👤 ' + username;
+    document.getElementById('nav-username').textContent = '👤 ecoadmin';
 
-    // Fetch all entries
     const { data: entries, error } = await db
         .from('waste_logs')
         .select('*')
@@ -28,7 +28,6 @@ window.onload = async function () {
 
     allEntries = entries;
 
-    // Populate user filter dropdown
     const usernames = [...new Set(entries.map(e => e.username).filter(Boolean))];
     const filter = document.getElementById('user-filter');
     usernames.forEach(u => {

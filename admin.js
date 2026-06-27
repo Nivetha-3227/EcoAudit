@@ -7,8 +7,13 @@ window.onload = async function () {
         return;
     }
 
-    const username = user.user_metadata?.username || 'ecoadmin';
-    document.getElementById('nav-username').textContent = '👤 ' + username;
+    
+    if (user.email !== 'ecoadmin@ecoaudit.com') {
+        window.location.href = 'dashboard.html';
+        return;
+    }
+
+    document.getElementById('nav-username').textContent = '👤 ecoadmin';
 
     initAdminMap();
     loadAdminData();

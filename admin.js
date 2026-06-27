@@ -268,7 +268,14 @@ async function reverseGeocode(lat, lng) {
         return 'Unknown location';
     }
 }
+function openPhoto(url) {
+    document.getElementById('photo-modal-img').src = url;
+    document.getElementById('photo-modal').style.display = 'flex';
+}
 
+function closePhoto() {
+    document.getElementById('photo-modal').style.display = 'none';
+}
 async function logout() {
     await db.auth.signOut();
     window.location.href = 'index.html';

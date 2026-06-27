@@ -189,18 +189,22 @@ async function loadNotices() {
         return;
     }
 
-    list.innerHTML = notices.map(notice => `
-        <div class="notice-card" onclick="openNoticeModal('${notice.title}', '${notice.message}', '${new Date(notice.created_at).toLocaleDateString()}')">
+    // Store notices in a global array so modal can access full data
+    window.noticesData = notices;
+
+    list.innerHTML = notices.map((notice, index) => `
+        <div class="notice-card" onclick="openNoticeModal(${index})">
             <span class="notice-title">📢 ${notice.title}</span>
             <span class="notice-date">${new Date(notice.created_at).toLocaleDateString()}</span>
         </div>
     `).join('');
 }
 
-function openNoticeModal(title, message, date) {
-    document.getElementById('notice-modal-title').textContent = title;
-    document.getElementById('notice-modal-message').textContent = message;
-    document.getElementById('notice-modal-date').textContent = '📅 ' + date;
+function openNoticeModal(index) {
+    const notice = window.noticesData[index];
+    document.getElementById('notice-modal-title').textContent = notice.title;
+    document.getElementById('notice-modal-message').textContent = notice.message;
+    document.getElementById('notice-modal-date').textContent = '📅 ' + new Date(notice.created_at).toLocaleDateString();
     document.getElementById('notice-modal').style.display = 'flex';
 }
 

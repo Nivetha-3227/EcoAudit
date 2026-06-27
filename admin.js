@@ -8,11 +8,6 @@ window.onload = async function () {
     }
 
     const username = user.user_metadata?.username || 'ecoadmin';
-    if (username !== 'ecoadmin') {
-        window.location.href = 'dashboard.html';
-        return;
-    }
-
     document.getElementById('nav-username').textContent = '👤 ' + username;
 
     initAdminMap();
@@ -39,16 +34,13 @@ async function loadAdminData() {
         return;
     }
 
-    // Global stats
     const totalWaste = allLogs.reduce((sum, entry) => sum + entry.weight, 0);
     document.getElementById('admin-total-waste').textContent = totalWaste.toFixed(2) + ' kg';
     document.getElementById('admin-total-disposals').textContent = allLogs.length;
 
-    // Unique users
     const uniqueUsers = [...new Set(allLogs.map(e => e.user_id))].length;
     document.getElementById('admin-total-users').textContent = uniqueUsers + ' users';
 
-    // Most active location
     if (allLogs.length > 0) {
         const placeName = await reverseGeocode(allLogs[0].latitude, allLogs[0].longitude);
         document.getElementById('admin-top-location').textContent = '📍 ' + placeName;
@@ -61,8 +53,6 @@ async function loadAdminData() {
 
 function updateWasteRanking(allLogs) {
     const allCategories = ['Plastic', 'E-Waste', 'Organic', 'Metal', 'Paper', 'Glass'];
-
-    // Calculate total kg per category
     const categoryTotals = {};
     allCategories.forEach(cat => categoryTotals[cat] = 0);
     allLogs.forEach(entry => {
@@ -71,9 +61,7 @@ function updateWasteRanking(allLogs) {
         }
     });
 
-    // Sort descending by weight
-    const sorted = Object.entries(categoryTotals)
-        .sort((a, b) => b[1] - a[1]);
+    const sorted = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]);
 
     const colors = {
         'Plastic': '#3498db',
@@ -103,12 +91,11 @@ function updateWasteRanking(allLogs) {
 function updateAdminMap(allLogs) {
     allLogs.forEach(entry => {
         if (entry.latitude && entry.longitude) {
+            const displayName = entry.username || 'Unknown User';
             L.marker([entry.latitude, entry.longitude])
                 .addTo(adminMap)
-                .bindTooltip(
-                    `👤 ${entry.username || 'Unknown'}`,
-                    { permanent: false, direction: 'top' }
-                );
+                .bindTooltip(`👤 ${displayName}`, { permanent: false, direction: 'top' })
+                .bindPopup(`<b>👤 ${displayName}</b><br>${entry.category} — ${entry.weight} kg<br>${new Date(entry.created_at).toLocaleDateString()}`);
         }
     });
 }
@@ -154,12 +141,26 @@ async function loadNotices() {
         return;
     }
 
-    list.innerHTML = notices.map(notice => `
-        <div class="notice-card">
+    window.adminNoticesData = notices;
+
+    list.innerHTML = notices.map((notice, index) => `
+        <div class="notice-card" onclick="openNoticeModal(${index})">
             <span class="notice-title">📢 ${notice.title}</span>
             <span class="notice-date">${new Date(notice.created_at).toLocaleDateString()}</span>
         </div>
     `).join('');
+}
+
+function openNoticeModal(index) {
+    const notice = window.adminNoticesData[index];
+    document.getElementById('notice-modal-title').textContent = notice.title;
+    document.getElementById('notice-modal-message').textContent = notice.message;
+    document.getElementById('notice-modal-date').textContent = '📅 ' + new Date(notice.created_at).toLocaleDateString();
+    document.getElementById('notice-modal').style.display = 'flex';
+}
+
+function closeNoticeModal() {
+    document.getElementById('notice-modal').style.display = 'none';
 }
 
 function toggleNoticeForm() {
@@ -211,18 +212,21 @@ async function loadSuggestions() {
         return;
     }
 
-    list.innerHTML = suggestions.map(s => `
-        <div class="notice-card" onclick="openSuggestionModal('${s.username}', \`${s.message}\`, '${new Date(s.created_at).toLocaleDateString()}')">
+    window.suggestionsData = suggestions;
+
+    list.innerHTML = suggestions.map((s, index) => `
+        <div class="notice-card" onclick="openSuggestionModal(${index})">
             <span class="notice-title">💬 ${s.username}</span>
             <span class="notice-date">${new Date(s.created_at).toLocaleDateString()}</span>
         </div>
     `).join('');
 }
 
-function openSuggestionModal(username, message, date) {
-    document.getElementById('suggestion-modal-username').textContent = '👤 ' + username;
-    document.getElementById('suggestion-modal-message').textContent = message;
-    document.getElementById('suggestion-modal-date').textContent = '📅 ' + date;
+function openSuggestionModal(index) {
+    const s = window.suggestionsData[index];
+    document.getElementById('suggestion-modal-username').textContent = '👤 ' + s.username;
+    document.getElementById('suggestion-modal-message').textContent = s.message;
+    document.getElementById('suggestion-modal-date').textContent = '📅 ' + new Date(s.created_at).toLocaleDateString();
     document.getElementById('suggestion-modal').style.display = 'flex';
 }
 

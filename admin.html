@@ -35,22 +35,28 @@
             </div>
         </div>
 
-        <!-- ROW 2: USER RANKING + NOTICE BOARD -->
+        <!-- ROW 2: WASTE RANKING + NOTICE BOARD -->
         <div class="two-col-row">
 
-            <!-- USER WASTE RANKING -->
+            <!-- WASTE TYPE RANKING -->
             <div class="admin-section">
-                <h2 class="section-title">🏆 User Waste Ranking</h2>
-                <div id="user-ranking-list"></div>
+                <h2 class="section-title">🏆 Waste Type Ranking</h2>
+                <div id="waste-ranking-list"></div>
             </div>
 
             <!-- NOTICE BOARD -->
             <div class="admin-section">
                 <h2 class="section-title">📢 Notice Board</h2>
-                <input type="text" id="notice-title" placeholder="Notice Title" />
-                <textarea id="notice-message" placeholder="Notice Message" rows="3"></textarea>
-                <button class="primary-btn" onclick="postNotice()">Post Notice</button>
-                <p id="notice-status"></p>
+                <button class="primary-btn" onclick="toggleNoticeForm()" id="post-notice-btn">+ Post Notice</button>
+                <div id="notice-form" style="display:none; margin-top:12px;">
+                    <input type="text" id="notice-title" placeholder="Notice Title" />
+                    <textarea id="notice-message" placeholder="Notice Message" rows="3"></textarea>
+                    <div class="modal-buttons">
+                        <button class="primary-btn" onclick="postNotice()">Post</button>
+                        <button class="cancel-btn" onclick="toggleNoticeForm()">Cancel</button>
+                    </div>
+                    <p id="notice-status"></p>
+                </div>
                 <div id="notice-list" style="margin-top: 16px;"></div>
             </div>
 
@@ -63,7 +69,7 @@
         </div>
 
         <!-- ROW 4: SUGGESTIONS -->
-        <div class="admin-section">
+        <div class="admin-section" style="margin-bottom: 24px;">
             <h2 class="section-title">💬 Suggestions from Users</h2>
             <div id="suggestions-list"></div>
         </div>

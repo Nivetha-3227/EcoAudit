@@ -434,3 +434,23 @@ select:focus {
     flex: 1;
     text-align: right;
 }
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #f0f4f0;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.entry-header span {
+    flex: 1;
+    text-align: left;
+}
+
+.entry-header span:last-child {
+    text-align: right;
+}

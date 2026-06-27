@@ -239,11 +239,14 @@ function closeModal() {
     document.getElementById('modal-message').textContent = '';
     document.getElementById('waste-category').value = '';
     document.getElementById('waste-weight').value = '';
+    document.getElementById('waste-photo').value = '';
+    document.getElementById('location-status').textContent = '📍 Location will be captured on submit';
 }
 
 async function submitWaste() {
     const category = document.getElementById('waste-category').value;
     const weight = parseFloat(document.getElementById('waste-weight').value);
+    const photoFile = document.getElementById('waste-photo').files[0];
 
     if (!category || !weight || weight <= 0) {
         document.getElementById('modal-message').textContent = 'Please fill in all fields correctly.';
@@ -260,13 +263,37 @@ async function submitWaste() {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
 
+            // Upload photo if provided
+            let photoUrl = null;
+            if (photoFile) {
+                document.getElementById('location-status').textContent = '📷 Uploading photo...';
+                const fileName = `${user.id}_${Date.now()}.${photoFile.name.split('.').pop()}`;
+                const { data: uploadData, error: uploadError } = await db.storage
+                    .from('photoproofs')
+                    .upload(fileName, photoFile);
+
+                if (uploadError) {
+                    document.getElementById('modal-message').textContent = 'Photo upload failed. Try again.';
+                    return;
+                }
+
+                // Get public URL of uploaded photo
+                const { data: urlData } = db.storage
+                    .from('photoproofs')
+                    .getPublicUrl(fileName);
+
+                photoUrl = urlData.publicUrl;
+            }
+
+            // Save to Supabase with photo URL
             const { error } = await db.from('waste_logs').insert({
                 user_id: user.id,
                 username: username,
                 category: category,
                 weight: weight,
                 latitude: lat,
-                longitude: lng
+                longitude: lng,
+                photo_url: photoUrl
             });
 
             if (error) {

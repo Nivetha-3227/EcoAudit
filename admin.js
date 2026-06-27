@@ -7,7 +7,7 @@ window.onload = async function () {
         return;
     }
 
-    const username = user.user_metadata.username;
+    const username = user.user_metadata?.username || 'ecoadmin';
     if (username !== 'ecoadmin') {
         window.location.href = 'dashboard.html';
         return;

@@ -7,9 +7,7 @@ window.onload = async function () {
         return;
     }
 
-    // Check by email instead of username since admin has no metadata
-    const email = user.email;
-    if (email !== 'ecoadmin@ecoaudit.com') {
+    if (user.email !== 'ecoadmin@ecoaudit.com') {
         window.location.href = 'dashboard.html';
         return;
     }
@@ -59,22 +57,37 @@ function displayEntries(entries) {
     }
 
     list.innerHTML = `
-        <div class="entry-header">
+        <div class="entry-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 1.5fr 1fr;">
             <span>Username</span>
             <span>Category</span>
             <span>Weight</span>
             <span>Date</span>
             <span>Coordinates</span>
+            <span>Photo</span>
         </div>
     ` + entries.map(entry => `
-        <div class="entry-card" style="grid-template-columns: 1fr 1fr 1fr 1fr 2fr;">
+        <div class="entry-card" style="grid-template-columns: 1fr 1fr 1fr 1fr 1.5fr 1fr;">
             <span class="entry-category">${entry.username || 'Unknown'}</span>
             <span class="entry-weight">${entry.category}</span>
             <span class="entry-date">${entry.weight} kg</span>
             <span class="entry-date">${new Date(entry.created_at).toLocaleDateString()}</span>
             <span class="entry-coords">📍 ${entry.latitude.toFixed(4)}, ${entry.longitude.toFixed(4)}</span>
+            <span class="entry-photo">
+                ${entry.photo_url
+                    ? `<img src="${entry.photo_url}" onclick="openPhoto('${entry.photo_url}')" class="entry-thumb" />`
+                    : '-'}
+            </span>
         </div>
     `).join('');
+}
+
+function openPhoto(url) {
+    document.getElementById('photo-modal-img').src = url;
+    document.getElementById('photo-modal').style.display = 'flex';
+}
+
+function closePhoto() {
+    document.getElementById('photo-modal').style.display = 'none';
 }
 
 async function logout() {

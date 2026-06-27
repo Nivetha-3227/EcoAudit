@@ -211,10 +211,10 @@ function toggleEntries() {
     const btn = document.querySelector('.dropdown-btn');
     if (list.style.display === 'none') {
         list.style.display = 'block';
-        btn.textContent = 'Past Entries ▲';
+        btn.textContent = 'Recent Entries ▲';
     } else {
         list.style.display = 'none';
-        btn.textContent = 'Past Entries ▼';
+        btn.textContent = 'Recent Entries ▼';
     }
 }
 

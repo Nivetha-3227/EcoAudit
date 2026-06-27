@@ -1,6 +1,7 @@
 let map;
 let currentLocationMarker;
 let currentUser;
+
 window.onload = async function () {
     const { data: { user } } = await db.auth.getUser();
     if (!user) {
@@ -8,6 +9,7 @@ window.onload = async function () {
         return;
     }
 
+    currentUser = user;
     const username = user.user_metadata.username;
     document.getElementById('nav-username').textContent = '👤 ' + username;
 
@@ -211,10 +213,10 @@ function toggleEntries() {
     const btn = document.querySelector('.dropdown-btn');
     if (list.style.display === 'none') {
         list.style.display = 'block';
-        btn.textContent = 'Recent Entries ▲';
+        btn.textContent = 'Past Entries ▲';
     } else {
         list.style.display = 'none';
-        btn.textContent = 'Recent Entries ▼';
+        btn.textContent = 'Past Entries ▼';
     }
 }
 
@@ -240,7 +242,8 @@ async function submitWaste() {
 
     document.getElementById('location-status').textContent = '📍 Capturing your location...';
 
-    const { data: { user } } = await db.auth.getUser();
+    const user = currentUser;
+    const username = user.user_metadata.username;
 
     navigator.geolocation.getCurrentPosition(
         async function (position) {
@@ -267,6 +270,30 @@ async function submitWaste() {
             document.getElementById('location-status').textContent = '❌ Location access denied. Please allow location to submit.';
         }
     );
+}
+
+async function submitSuggestion() {
+    const message = document.getElementById('suggestion-message').value;
+
+    if (!message) {
+        document.getElementById('suggestion-status').textContent = 'Please write a message first.';
+        return;
+    }
+
+    const user = currentUser;
+    const username = user.user_metadata.username;
+
+    const { error } = await db.from('suggestions').insert({
+        username: username,
+        message: message
+    });
+
+    if (error) {
+        document.getElementById('suggestion-status').textContent = 'Error sending. Try again.';
+    } else {
+        document.getElementById('suggestion-status').textContent = '✅ Suggestion sent!';
+        document.getElementById('suggestion-message').value = '';
+    }
 }
 
 async function logout() {

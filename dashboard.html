@@ -55,14 +55,22 @@
         <div class="entries-section">
             <div class="entries-header-row">
                 <button class="dropdown-btn" onclick="toggleEntries()">
-                    Recent Entries ▼
+                    Past Entries ▼
                 </button>
                 <a href="history.html" class="view-all-btn">View All History →</a>
             </div>
             <div id="entries-list" style="display:none;"></div>
         </div>
 
-        <!-- ROW 5: DISPOSE NOW -->
+        <!-- ROW 5: SUGGESTION BOX -->
+        <div class="admin-section" style="margin-bottom: 24px;">
+            <h2 class="section-title">💬 Send a Suggestion to Admin</h2>
+            <textarea id="suggestion-message" placeholder="Type your suggestion or complaint here..." rows="3"></textarea>
+            <button class="primary-btn" onclick="submitSuggestion()">Send</button>
+            <p id="suggestion-status"></p>
+        </div>
+
+        <!-- ROW 6: DISPOSE NOW -->
         <button class="dispose-btn" onclick="openModal()">🗑️ Dispose Now</button>
 
     </div>

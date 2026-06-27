@@ -115,18 +115,24 @@ function updateRecentEntries(allLogs) {
     }
 
     list.innerHTML = `
-        <div class="entry-header">
+        <div class="entry-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 0.8fr;">
             <span>Username</span>
             <span>Category</span>
             <span>Weight</span>
             <span>Date</span>
+            <span>Photo</span>
         </div>
     ` + last5.map(entry => `
-        <div class="entry-card">
+        <div class="entry-card" style="grid-template-columns: 1fr 1fr 1fr 1fr 0.8fr;">
             <span class="entry-category">${entry.username || 'Unknown'}</span>
             <span class="entry-weight">${entry.category}</span>
             <span class="entry-date">${entry.weight} kg</span>
             <span class="entry-coords">${new Date(entry.created_at).toLocaleDateString()}</span>
+            <span class="entry-photo">
+                ${entry.photo_url
+                    ? `<img src="${entry.photo_url}" onclick="openPhoto('${entry.photo_url}')" class="entry-thumb" />`
+                    : '-'}
+            </span>
         </div>
     `).join('');
 }

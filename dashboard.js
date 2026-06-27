@@ -134,7 +134,15 @@ function updateEntriesList(entries) {
         return;
     }
 
-    list.innerHTML = entries.map(entry => `
+    list.innerHTML = `
+        <div class="entry-header">
+            <span>Category</span>
+            <span>Weight</span>
+            <span>Date</span>
+            <span>Coordinates</span>
+        </div>
+        ` + 
+        entries.map(entry => `
         <div class="entry-card">
             <span class="entry-category">${entry.category}</span>
             <span class="entry-weight">${entry.weight} kg</span>

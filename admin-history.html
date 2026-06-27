@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoAudit - Admin History</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <span class="nav-logo">🌱 EcoAudit — Admin</span>
+        <div class="nav-right">
+            <span id="nav-username"></span>
+            <button class="logout-btn" onclick="logout()">Log Out</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+
+        <div class="history-header">
+            <a href="admin.html" class="back-btn">← Back to Admin</a>
+            <h1 class="history-title">Full Disposal History</h1>
+        </div>
+
+        <!-- FILTER BY USER -->
+        <div class="filter-section">
+            <select id="user-filter" onchange="filterByUser()">
+                <option value="all">All Users</option>
+            </select>
+        </div>
+
+        <div id="history-list"></div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="admin-history.js"></script>
+</body>
+</html>

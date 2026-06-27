@@ -54,57 +54,62 @@ async function loadAdminData() {
         document.getElementById('admin-top-location').textContent = '📍 ' + placeName;
     }
 
-    // User ranking
-    const userStats = {};
-    allLogs.forEach(entry => {
-        if (!userStats[entry.username]) {
-            userStats[entry.username] = { count: 0, totalWeight: 0 };
-        }
-        userStats[entry.username].count += 1;
-        userStats[entry.username].totalWeight += entry.weight;
-    });
-
-    updateUserRanking(userStats);
+    updateWasteRanking(allLogs);
     updateAdminMap(allLogs);
     updateRecentEntries(allLogs);
 }
 
-function updateUserRanking(userStats) {
-    const list = document.getElementById('user-ranking-list');
+function updateWasteRanking(allLogs) {
+    const allCategories = ['Plastic', 'E-Waste', 'Organic', 'Metal', 'Paper', 'Glass'];
 
-    const sorted = Object.entries(userStats)
-        .sort((a, b) => b[1].totalWeight - a[1].totalWeight);
+    // Calculate total kg per category
+    const categoryTotals = {};
+    allCategories.forEach(cat => categoryTotals[cat] = 0);
+    allLogs.forEach(entry => {
+        if (categoryTotals[entry.category] !== undefined) {
+            categoryTotals[entry.category] += entry.weight;
+        }
+    });
 
-    if (sorted.length === 0) {
-        list.innerHTML = '<p class="no-entries">No data yet.</p>';
-        return;
-    }
+    // Sort descending by weight
+    const sorted = Object.entries(categoryTotals)
+        .sort((a, b) => b[1] - a[1]);
 
+    const colors = {
+        'Plastic': '#3498db',
+        'E-Waste': '#e67e22',
+        'Organic': '#27ae60',
+        'Metal': '#95a5a6',
+        'Paper': '#f39c12',
+        'Glass': '#9b59b6'
+    };
+
+    const list = document.getElementById('waste-ranking-list');
     list.innerHTML = `
         <div class="entry-header">
             <span>Rank</span>
-            <span>Username</span>
-            <span>Disposals</span>
-            <span>Total Waste</span>
+            <span>Category</span>
+            <span>Total Weight</span>
         </div>
-    ` + sorted.map(([username, stats], index) => `
-        <div class="entry-card" style="grid-template-columns: 0.5fr 2fr 1fr 1fr;">
+    ` + sorted.map(([category, total], index) => `
+        <div class="entry-card" style="grid-template-columns: 0.5fr 2fr 1fr; border-left: 4px solid ${colors[category]}">
             <span class="entry-category">#${index + 1}</span>
-            <span class="entry-category">${username}</span>
-            <span class="entry-weight">${stats.count}</span>
-            <span class="entry-date">${stats.totalWeight.toFixed(2)} kg</span>
+            <span class="entry-category">${category}</span>
+            <span class="entry-date">${total.toFixed(2)} kg</span>
         </div>
     `).join('');
 }
 
 function updateAdminMap(allLogs) {
     allLogs.forEach(entry => {
-        L.marker([entry.latitude, entry.longitude])
-            .addTo(adminMap)
-            .bindTooltip(
-                `👤 ${entry.username || 'Unknown'}`,
-                { permanent: false, direction: 'top' }
-            );
+        if (entry.latitude && entry.longitude) {
+            L.marker([entry.latitude, entry.longitude])
+                .addTo(adminMap)
+                .bindTooltip(
+                    `👤 ${entry.username || 'Unknown'}`,
+                    { permanent: false, direction: 'top' }
+                );
+        }
     });
 }
 
@@ -157,6 +162,18 @@ async function loadNotices() {
     `).join('');
 }
 
+function toggleNoticeForm() {
+    const form = document.getElementById('notice-form');
+    const btn = document.getElementById('post-notice-btn');
+    if (form.style.display === 'none') {
+        form.style.display = 'block';
+        btn.textContent = '✕ Cancel';
+    } else {
+        form.style.display = 'none';
+        btn.textContent = '+ Post Notice';
+    }
+}
+
 async function postNotice() {
     const title = document.getElementById('notice-title').value;
     const message = document.getElementById('notice-message').value;
@@ -174,6 +191,7 @@ async function postNotice() {
         document.getElementById('notice-status').textContent = '✅ Notice posted!';
         document.getElementById('notice-title').value = '';
         document.getElementById('notice-message').value = '';
+        toggleNoticeForm();
         loadNotices();
     }
 }

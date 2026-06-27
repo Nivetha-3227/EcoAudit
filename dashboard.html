@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <!-- TOP NAV BAR -->
     <nav class="navbar">
         <span class="nav-logo">🌱 EcoAudit</span>
         <div class="nav-right">
@@ -17,8 +16,9 @@
         </div>
     </nav>
 
-    <!-- STAT CARDS -->
     <div class="dashboard-container">
+
+        <!-- ROW 1: STAT CARDS -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>Total Waste Logged</h3>
@@ -29,31 +29,57 @@
                 <p id="total-count">0</p>
             </div>
             <div class="stat-card">
-                <h3>Most Frequent Category</h3>
+                <h3>Most Frequent Location</h3>
                 <p id="top-category">-</p>
             </div>
         </div>
-        <!-- TOP 3 WASTE TYPES -->
-<div class="top-waste-section">
-    <h2 class="section-title">Top Waste Categories</h2>
-    <div id="top-waste-list" class="top-waste-grid"></div>
-</div>
-        <!-- MAP -->
-        <div id="map"></div>
 
-        <!-- PAST ENTRIES DROPDOWN -->
+        <!-- ROW 2: TOP 3 + NOTICE BOARD -->
+        <div class="two-col-row">
+            <div class="top-waste-section">
+                <h2 class="section-title">Top Waste Categories</h2>
+                <div id="top-waste-list" class="top-waste-grid-vertical"></div>
+            </div>
+            <div class="notice-board-section">
+                <h2 class="section-title">📢 Notice Board</h2>
+                <div id="notice-list"></div>
+            </div>
+        </div>
+
+        <!-- ROW 3: MAP -->
+        <div class="map-section">
+            <div id="map"></div>
+        </div>
+
+        <!-- ROW 4: LAST 5 ENTRIES -->
         <div class="entries-section">
-            <button class="dropdown-btn" onclick="toggleEntries()">
-                Past Entries ▼
-            </button>
+            <div class="entries-header-row">
+                <button class="dropdown-btn" onclick="toggleEntries()">
+                    Past Entries ▼
+                </button>
+                <a href="history.html" class="view-all-btn">View All History →</a>
+            </div>
             <div id="entries-list" style="display:none;"></div>
         </div>
 
-        <!-- DISPOSE NOW BUTTON -->
+        <!-- ROW 5: DISPOSE NOW -->
         <button class="dispose-btn" onclick="openModal()">🗑️ Dispose Now</button>
+
     </div>
 
-    <!-- MODAL POPUP -->
+    <!-- NOTICE POPUP -->
+    <div id="notice-modal" style="display:none;">
+        <div class="modal-box">
+            <h2 id="notice-modal-title"></h2>
+            <p id="notice-modal-message"></p>
+            <p id="notice-modal-date"></p>
+            <div class="modal-buttons">
+                <button class="primary-btn" onclick="closeNoticeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISPOSE MODAL -->
     <div id="modal" style="display:none;">
         <div class="modal-box">
             <h2>Log Waste</h2>

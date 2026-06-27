@@ -566,3 +566,25 @@ select:focus {
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
+/* FILTER SECTION */
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section select {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* STAT SUB TEXT */
+.stat-sub {
+    font-size: 0.9rem !important;
+    color: #aaa !important;
+    font-weight: normal !important;
+    margin-top: 4px;
+}

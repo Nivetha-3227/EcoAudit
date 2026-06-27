@@ -20,7 +20,6 @@ async function login() {
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
 
-    // Create fake email from username behind the scenes
     const email = username + "@ecoaudit.com";
 
     const { error } = await db.auth.signInWithPassword({ email, password });
@@ -28,7 +27,12 @@ async function login() {
     if (error) {
         document.getElementById('auth-message').textContent = "Invalid username or password.";
     } else {
-        window.location.href = 'dashboard.html';
+        // Redirect admin to admin panel, others to dashboard
+        if (username === 'ecoaudit_admin') {
+            window.location.href = 'admin.html';
+        } else {
+            window.location.href = 'dashboard.html';
+        }
     }
 }
 

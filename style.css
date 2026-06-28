@@ -426,7 +426,7 @@ input:focus {
 }
 
 /* MODAL */
-#modal, #notice-modal {
+#modal, #notice-modal, #suggestion-modal {
     position: fixed;
     top: 0;
     left: 0;

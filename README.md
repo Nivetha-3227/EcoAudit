@@ -61,4 +61,19 @@ https://ecoaudit-one.vercel.app/
 - User: sign up with any username and password
 - Community Manager: username is ecoadmin and password is admin123
 
-  
+  <img width="959" height="538" alt="image" src="https://github.com/user-attachments/assets/6638662e-ce17-4bf9-8c8e-b4da5d66bf96" />
+  <img width="950" height="551" alt="image" src="https://github.com/user-attachments/assets/bf525e35-36d9-4d72-8362-4911d6fac12c" />
+  <img width="951" height="499" alt="image" src="https://github.com/user-attachments/assets/74afc38e-b2e4-4d64-90d7-372353fc3a71" />
+  <img width="955" height="490" alt="image" src="https://github.com/user-attachments/assets/6d7b6797-b3df-4dbe-aabc-2d5d879c6926" />
+  <img width="958" height="497" alt="image" src="https://github.com/user-attachments/assets/f7871a5d-fcae-48e3-891a-1649163b6ebc" />
+  <img width="946" height="490" alt="image" src="https://github.com/user-attachments/assets/59b07b25-6f45-4663-ba75-0b3665bc5cc4" />
+  <img width="959" height="501" alt="image" src="https://github.com/user-attachments/assets/4727620b-f8d8-42d7-a924-b42e5513d58c" />
+  <img width="959" height="493" alt="image" src="https://github.com/user-attachments/assets/1f8234e7-5ab9-45ef-ac8c-ea54a30375c5" />
+
+
+
+
+
+
+
+

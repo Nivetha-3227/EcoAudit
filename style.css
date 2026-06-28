@@ -657,5 +657,5 @@ input[type="file"] {
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-right: 8px;
-    text-align: right;
+    text-align: left;
 }

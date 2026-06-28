@@ -115,19 +115,21 @@ function updateRecentEntries(allLogs) {
     }
 
     list.innerHTML = `
-        <div class="entry-header" style="grid-template-columns: 1fr 1fr 1fr 1fr 0.8fr;">
+        <div class="entry-header" style="grid-template-columns: 1fr 1fr 0.8fr 0.8fr 1.8fr 0.6fr;">
             <span>Username</span>
             <span>Category</span>
             <span>Weight</span>
             <span>Date</span>
+            <span>Coordinates</span>
             <span>Photo</span>
         </div>
     ` + last5.map(entry => `
-        <div class="entry-card" style="grid-template-columns: 1fr 1fr 1fr 1fr 0.8fr;">
+        <div class="entry-card" style="grid-template-columns: 1fr 1fr 0.8fr 0.8fr 1.8fr 0.6fr;">
             <span class="entry-category">${entry.username || 'Unknown'}</span>
             <span class="entry-weight">${entry.category}</span>
             <span class="entry-date">${entry.weight} kg</span>
-            <span class="entry-coords">${new Date(entry.created_at).toLocaleDateString()}</span>
+            <span class="entry-date">${new Date(entry.created_at).toLocaleDateString()}</span>
+            <span class="entry-coords">📍 ${entry.latitude.toFixed(4)}, ${entry.longitude.toFixed(4)}</span>
             <span class="entry-photo">
                 ${entry.photo_url
                     ? `<img src="${entry.photo_url}" onclick="openPhoto('${entry.photo_url}')" class="entry-thumb" />`
@@ -136,7 +138,6 @@ function updateRecentEntries(allLogs) {
         </div>
     `).join('');
 }
-
 async function loadNotices() {
     const { data: notices, error } = await db
         .from('notices')

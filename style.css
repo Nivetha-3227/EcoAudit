@@ -650,3 +650,11 @@ input[type="file"] {
     border-radius: 12px;
     object-fit: contain;
 }
+.entry-coords {
+    color: #aaa;
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 8px;
+}

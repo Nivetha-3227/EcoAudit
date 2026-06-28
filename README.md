@@ -56,6 +56,13 @@ https://ecoaudit-one.vercel.app/
 - admin.js: manager dashboard logic
 - admin-history.js: manager history logic
 
+## How to Run Locally
+1. Clone the repository
+   git clone https://github.com/nivetha-3227/EcoAudit.git
+2. Open the folder in VS Code
+3. Install the Live Server extension
+4. Right click index.html and click Open with Live Server
+5. No database setup needed as the app uses a live Supabase backend
 
 ## Test Accounts
 - User: sign up with any username and password

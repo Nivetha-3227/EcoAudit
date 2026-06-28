@@ -11,7 +11,7 @@ https://ecoaudit-one.vercel.app/
 - File Storage: Supabase Storage
 - Maps: Leaflet.js with OpenStreetMap
 - Reverse Geocoding: Nominatim (OpenStreetMap)
-- Deployment: GitHub Pages
+- Deployment: Vercel
 ## APIs Used
 - Supabase API: database, authentication and file storage
 - Browser Geolocation API: automatic GPS coordinate capture
